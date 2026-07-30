@@ -35,5 +35,35 @@
 // =============================================================================
 
 #include <iostream>
-using namespace std;
 
+// using boolean for prime checker function
+bool isPrime(int number){
+    if (number < 2){
+       return false;
+    }
+    // separate check for even numbers greater than 2 since they can never be primes
+    if (number> 2 && number %2 ==0){
+        return false;
+    }
+    // check for only odd numbers
+    for (int i=3, i * i <= number, i+=2){
+        if (number % i == 0 ){
+            return false;
+        }
+    return true
+    }
+}
+
+int main(){
+    int userNumber;
+    std::cout<<"Enter a number: "<<std::endl;
+    std::cin>> userNumber;
+
+    if (isPrime(userNumber)){
+        std::cout<<userNumber<<" is a prime number."<< std::endl;
+    } else{
+        std::cout<<userNumber<<" is NOT a prime number."<< std::endl;
+    }
+    
+    return 0
+}
