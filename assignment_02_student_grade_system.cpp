@@ -44,5 +44,32 @@
 // =============================================================================
 
 #include <iostream>
-using namespace std;
+
+const char* getGrade(int score){
+    if (score < 0 || score > 100){
+        return '\0';
+    }
+    // only numbers between 0 and 100 are checked.
+    if (score >= 80) return "A";
+    if (score >= 70) return "B";
+    if (score >= 60) return "C";
+    if (score >= 50) return "D";
+    return "F";
+}
+
+int main(){
+    int user_score;
+    std::cout<< "Enter your score(0-100): " << std::endl;
+    std::cin>>user_score;
+ 
+    const char* grade = getGrade(user_score);
+    // checks if grade contain a 0 memory address
+    if (!grade){
+        std::cout<<"Error: Score must be between 0 and 100. "<<std::endl; 
+    } else {
+        //grade is return is memory address is not zero.
+        std::cout<< "Grade: "<<grade<<std::endl;
+    }
+    return 0;
+}
 
