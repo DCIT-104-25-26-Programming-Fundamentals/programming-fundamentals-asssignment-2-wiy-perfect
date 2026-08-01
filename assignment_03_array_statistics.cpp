@@ -53,7 +53,7 @@ int add(std::vector<int> numberList){
 
 double average(std::vector<int> numberLList){
    double mean= (double)add(numberList)/ numberList.size() //forcing double division since add() return an int
-   return mean
+   return mean;
 }
 
 int max(std::vector<int> numberList){
@@ -63,7 +63,7 @@ int max(std::vector<int> numberList){
         maxNum = numberList[i]
     }
    }
-   return maxNum 
+   return maxNum;
 }
 
 int min(std::vector <int> numberList){
@@ -73,7 +73,7 @@ int min(std::vector <int> numberList){
             minNumber= numberList[i]
         }
     }
-    return minNUmber
+    return minNUmber;
 }
 
 int main(){
@@ -83,19 +83,20 @@ int main(){
 
     if (count<=0){
         std::cout<<"Error: You entered an invalid number"<<std::endl;
-        return
+        return;
     }
-    //storing user input in a temporary variable and psuhing back to the 'numbers' array
     std::vector<int> numbers= {};
     for(i=0, i<= count-1;i++){
         int temporaryNumber;
         std::cout<<"Enter number"<<i+1<<" :"<<std::endl;
         std::cin>> temporaryNumber;
-
+        
         numbers.push_back(temporaryNumber);
+    //storing user input in a temporary variable and pushing back to the 'numbers' array
+
         if (count[i]<=0){
             std::cout<<"Error: The number you entered is less than 0"<<std::endl;
-            return 
+            return;
         }
     }
 
