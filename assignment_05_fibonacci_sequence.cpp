@@ -49,5 +49,26 @@
 // =============================================================================
 
 #include <iostream>
-using namespace std;
+
+#include <iostream>
+
+void printFib(int n) {
+    if (n <= 0) return;
+    int a = 0, b = 1;
+    for (int i = 0; i < n; ++i) {
+        std::cout << a << " ";
+        int next = a + b;
+        a = b;
+        b = next;
+    }
+    std::cout << std::endl;
+}
+
+int main() {
+    int n;
+    std::cin >> n;
+    printFib(n);
+    return 0;
+}
+
 
