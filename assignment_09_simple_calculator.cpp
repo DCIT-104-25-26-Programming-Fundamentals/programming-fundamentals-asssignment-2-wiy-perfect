@@ -71,5 +71,116 @@
 #include <iostream>
 #include <iomanip>
 #include <cmath>
+
 using namespace std;
+
+// Operation Functions
+double addValues(double num1, double num2) {
+    return num1 + num2;
+}
+
+double subtractValues(double num1, double num2) {
+    return num1 - num2;
+}
+
+double multiplyValues(double num1, double num2) {
+    return num1 * num2;
+}
+
+double divideValues(double num1, double num2) {
+    return num1 / num2;
+}
+
+int calculateModulus(int num1, int num2) {
+    return num1 % num2;
+}
+
+double calculatePower(double base, double exponent) {
+    return pow(base, exponent);
+}
+
+// Helper function to collect input variables
+void getTwoInputs(double& first, double& second) {
+    cout << "Enter first number : ";
+    cin >> first;
+    cout << "Enter second number: ";
+    cin >> second;
+}
+
+int main() {
+    int selection = 0;
+    double val1 = 0, val2 = 0;
+
+    while (selection != 7) {
+        cout << "\n============================" << endl;
+        cout << "     SIMPLE CALCULATOR" << endl;
+        cout << "============================" << endl;
+        cout << "1. Addition" << endl;
+        cout << "2. Subtraction" << endl;
+        cout << "3. Multiplication" << endl;
+        cout << "4. Division" << endl;
+        cout << "5. Modulus" << endl;
+        cout << "6. Exponentiation" << endl;
+        cout << "7. Quit" << endl;
+        cout << "Select an operation (1-7): ";
+        cin >> selection;
+
+        // Quit right away without prompting for coordinates
+        if (selection == 7) {
+            cout << "Goodbye!" << endl;
+            break;
+        }
+
+        cout << fixed << setprecision(2);
+
+        switch (selection) {
+            case 1:
+                getTwoInputs(val1, val2);
+                cout << "Result: " << val1 << " + " << val2 << " = " << addValues(val1, val2) << endl;
+                break;
+                
+            case 2:
+                getTwoInputs(val1, val2);
+                cout << "Result: " << val1 << " - " << val2 << " = " << subtractValues(val1, val2) << endl;
+                break;
+                
+            case 3:
+                getTwoInputs(val1, val2);
+                cout << "Result: " << val1 << " * " << val2 << " = " << multiplyValues(val1, val2) << endl;
+                break;
+                
+            case 4:
+                getTwoInputs(val1, val2);
+                if (val2 == 0) {
+                    cout << "Error: Cannot divide by zero." << endl;
+                } else {
+                    cout << "Result: " << val1 << " / " << val2 << " = " << divideValues(val1, val2) << endl;
+                }
+                break;
+                
+            case 5:
+                getTwoInputs(val1, val2);
+                // Modulus rules require integers in C++
+                if (static_cast<int>(val2) == 0) {
+                    cout << "Error: Cannot divide by zero in modulus." << endl;
+                } else {
+                    cout << "Result: " << static_cast<int>(val1) << " % " << static_cast<int>(val2) << " = " 
+                         << calculateModulus(static_cast<int>(val1), static_cast<int>(val2)) << endl;
+                }
+                break;
+                
+            case 6:
+                getTwoInputs(val1, val2);
+                cout << "Result: " << val1 << " ^ " << val2 << " = " << calculatePower(val1, val2) << endl;
+                break;
+                
+            default:
+                cout << "Invalid selection! Please enter a number between 1 and 7." << endl;
+                break;
+        }
+    }
+
+    return 0;
+}
+
 
