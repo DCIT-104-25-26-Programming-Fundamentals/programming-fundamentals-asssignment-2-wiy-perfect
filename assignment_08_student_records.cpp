@@ -8,7 +8,7 @@
 // Use a struct to represent each student record containing:
 //
 //   - name   : the student's full name  (string)
-//   - id     : a unique student ID number (int, e.g. 20240001)
+//   - id    A : a unique student ID number (int, e.g. 20240001)
 //   - scores : a list of scores from multiple assessments (vector<double>)
 //
 // -----------------------------------------------------------------------------
@@ -81,5 +81,136 @@
 #include <vector>
 #include <string>
 #include <iomanip>
+
 using namespace std;
+
+// Struct layout definition
+struct Student {
+    string name;
+    int id;
+    vector<double> scores;
+};
+
+// Helper function to calculate average of a single student
+double calculateStudentAverage(const Student& s) {
+    if (s.scores.empty()) return 0.0;
+    double sum = 0;
+    for (double score : s.scores) {
+        sum += score;
+    }
+    return sum / s.scores.size();
+}
+
+// Feature 1: Add a Student
+void addStudent(vector<Student>& database) {
+    Student newStudent;
+    cin.ignore(); // Clean leftover newline from choice input
+    
+    cout << "Student name: ";
+    getline(cin, newStudent.name);
+    
+    cout << "Student ID: ";
+    cin >> newStudent.id;
+    
+    int numScores;
+    cout << "How many scores? ";
+    cin >> numScores;
+    
+    for (int i = 0; i < numScores; i++) {
+        double score;
+        cout << "Enter score " << (i + 1) << ": ";
+        cin >> score;
+        newStudent.scores.push_back(score);
+    }
+    
+    database.push_back(newStudent);
+    cout << "Student \"" << newStudent.name << "\" added successfully." << endl;
+}
+
+// Feature 2: Display All Students
+void displayAllStudents(const vector<Student>& database) {
+    if (database.empty()) {
+        cout << "No student records found in the system." << endl;
+        return;
+    }
+    
+    cout << fixed << setprecision(2);
+    cout << "\n------------------------------------------------------------" << endl;
+    cout << left << setw(20) << "Name" << setw(12) << "ID" << setw(18) << "Scores" << "Average" << endl;
+    cout << "------------------------------------------------------------" << endl;
+    
+    for (const auto& s : database) {
+        cout << left << setw(20) << s.name << setw(12) << s.id;
+        
+        // Print individual scores inline
+        string scoresStr = "";
+        for (size_t i = 0; i < s.scores.size(); i++) {
+            scoresStr += to_string(static_cast<int>(s.scores[i])); // Cast to integer for standard layout display
+            if (i < s.scores.size() - 1) scoresStr += ", ";
+        }
+        
+        cout << left << setw(18) << scoresStr;
+        cout << calculateStudentAverage(s) << endl;
+    }
+    cout << "------------------------------------------------------------" << endl;
+}
+
+// Feature 3: Calculate Average Score
+void displaySpecificAverage(const vector<Student>& database) {
+    if (database.empty()) {
+        cout << "The database is empty." << endl;
+        return;
+    }
+    
+    cout << "Enter student ID: ";
+    int targetId;
+    cin >> targetId;
+    
+    for (const auto& s : database) {
+        if (s.id == targetId) {
+            cout << fixed << setprecision(2);
+            cout << s.name << "'s average score: " << calculateStudentAverage(s) << endl;
+            return; // Exit function immediately once found
+        }
+    }
+    
+    cout << "Error: Student ID " << targetId << " not found." << endl;
+}
+
+int main() {
+    vector<Student> database;
+    int choice = 0;
+    
+    while (choice != 4) {
+        cout << "\n================================" << endl;
+        cout << "   STUDENT RECORD SYSTEM MENU" << endl;
+        cout << "================================" << endl;
+        cout << "1. Add student" << endl;
+        cout << "2. Display all students" << endl;
+        cout << "3. Calculate average score" << endl;
+        cout << "4. Quit" << endl;
+        cout << "Enter your choice (1-4): ";
+        cin >> choice;
+        
+        switch (choice) {
+            case 1:
+                addStudent(database);
+                break;
+            case 2:
+                displayAllStudents(database);
+                break;
+            case 3:
+                displaySpecificAverage(database);
+                break;
+            case 4:
+                cout << "Goodbye!" << endl;
+                break;
+            default:
+                cout << "Invalid choice! Please enter a number between 1 and 4." << endl;
+                break;
+        }
+    }
+    return 0;
+}
+
 
